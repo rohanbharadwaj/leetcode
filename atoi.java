@@ -1,34 +1,37 @@
-public class Solution {
+public class atoi {
     public int atoi(String str) {
-        String trimmed_sring = str.trim();
-        char[] array = trimmed_sring.toCharArray();
-        int len=array.length;
-        if(len==0) return 0;
-        int i;
-        int sum = 0;
-        if(array[0]=='+'||array[0]=='-')
-        {
-            for(i=1;i<len;i++)
-            if(array[i]>='0' && array[i]<='9')
-               sum = sum*10+(array[i]-'0');
-            else
-            {
-            if(array[0]=='-')
-            return -sum;
-            }
-        }       
-        else
-        {
-            for(i=0;i<len;i++)
-             if(array[i]>='0' && array[i]<='9')
-            sum = sum*10+(array[i]-'0');
-            
-        }
-        if(array[0]=='-')
-        sum = -sum;
-        if(sum > 2147483647 || sum < -2147483648)
-        return 2147483647;
-        
-        return sum;
+        if (str == null || str.length() < 1)
+        return 0;
+     str = str.trim();
+ 
+    char flag = '+';
+ 
+    // check negative or positive
+    int i = 0;
+    if (str.charAt(0) == '-') {
+        flag = '-';
+        i++;
+    } else if (str.charAt(0) == '+') {
+        i++;
+    }
+    double result = 0;
+ 
+    // calculate value
+    while (str.length() > i && str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+        result = result * 10 + (str.charAt(i) - '0');
+        i++;
+    }
+ 
+    if (flag == '-')
+        result = -result;
+ 
+    // handle max and min
+    if (result > Integer.MAX_VALUE)
+        return Integer.MAX_VALUE;
+ 
+    if (result < Integer.MIN_VALUE)
+        return Integer.MIN_VALUE;
+ 
+    return (int) result;
     }
 }
